@@ -1,4 +1,5 @@
-﻿using NotaFiscalEstoque.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using NotaFiscalEstoque.Domain.Entities;
 using NotaFiscalEstoque.Domain.Interfaces;
 using NotaFiscalEstoque.Infrastructure.Context;
 
@@ -11,7 +12,9 @@ namespace NotaFiscalEstoque.Infrastructure.Repositories
 
         public Produto GetById(int id)
         {
-            return _context.Produtos.Find(id)!;
+            return _context.Produtos
+                .AsNoTracking()
+                .FirstOrDefault(item => item.Id == id)!;
         }
 
         public IEnumerable<Produto> GetProdutos()

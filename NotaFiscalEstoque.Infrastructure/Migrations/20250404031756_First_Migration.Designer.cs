@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NotaFiscalEstoque.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250403014805_First_Migration")]
+    [Migration("20250404031756_First_Migration")]
     partial class First_Migration
     {
         /// <inheritdoc />

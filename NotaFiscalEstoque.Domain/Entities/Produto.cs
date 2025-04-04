@@ -18,6 +18,6 @@ namespace NotaFiscalEstoque.Domain.Entities
         [StringLength(300)]
         public string Descricao { get; set; } = string.Empty;
 
-        public DateTime DataCadastro { get; set; } = DateTime.Now;
+        public DateTime DataCadastro { get; set; } = DateTime.UtcNow.AddHours(-3);
     }
 }

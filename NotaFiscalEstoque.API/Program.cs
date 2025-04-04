@@ -1,11 +1,17 @@
 using NotaFiscalEstoque.CrossCutting;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using NotaFiscalEstoque.API.Interfaces;
+using NotaFiscalEstoque.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddInfrastructureAPI();
+
+builder.Services.AddSingleton<IEstoqueService, EstoqueService>();
+builder.Services.AddSingleton<IKafkaProducerService, KafkaProducerService>();
+builder.Services.AddSingleton<IKafkaConsumerService, KafkaConsumerService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -33,6 +39,10 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+var consumer = app.Services.GetRequiredService<KafkaConsumerService>();
+
+_ = Task.Run(consumer.ConsumirNotas);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -15,7 +15,7 @@ namespace NotaFiscalEstoque.CrossCutting
         public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services)
         {
             var connectionString = Environment.GetEnvironmentVariable("CONEXAO_BANCO")
-                ?? Environment.GetEnvironmentVariable("CONEXAO_BANCO_NOTA_FISCAL");
+                ?? Environment.GetEnvironmentVariable("CONEXAO_BANCO_NOTA_FISCAL_ESTOQUE");
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));
