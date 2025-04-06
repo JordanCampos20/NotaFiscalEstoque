@@ -19,7 +19,8 @@ namespace NotaFiscalEstoque.API.Services
                 SaslMechanism = SaslMechanism.Plain,
                 SaslUsername = Environment.GetEnvironmentVariable("USERNAME_KAFKA"),
                 SaslPassword = Environment.GetEnvironmentVariable("PASSWORD_KAFKA"),
-                ClientId = Environment.GetEnvironmentVariable("CLIENTID_KAFKA")
+                ClientId = Environment.GetEnvironmentVariable("CLIENTID_KAFKA"),
+                GroupId = Environment.GetEnvironmentVariable("GROUPID_KAFKA")
             }).Build();
 
         private readonly string _topic = "validar-estoque";
