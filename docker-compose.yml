@@ -1,6 +1,0 @@
-﻿services:
-  notafiscalestoqueapi:
-    image: notafiscalestoqueapi
-    build:
-      context: .
-      dockerfile: Dockerfile
