@@ -17,6 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NotaFiscalEstoque.CrossCutting\NotaFiscalEstoque.CrossCutting.csproj" />
+    <ProjectReference Include="..\NotaFiscalEstoque.Application\NotaFiscalEstoque.Application.csproj" />
+    <ProjectReference Include="..\NotaFiscalEstoque.Domain\NotaFiscalEstoque.Domain.csproj" />
+    <ProjectReference Include="..\NotaFiscalEstoque.Infrastructure\NotaFiscalEstoque.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
