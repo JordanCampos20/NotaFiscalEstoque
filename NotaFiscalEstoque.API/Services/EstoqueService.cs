@@ -18,7 +18,7 @@ namespace NotaFiscalEstoque.API.Services
 
                 foreach (var item in notaEstoque.Produtos)
                 {
-                    var produto = _produtoService.GetById(item.Id);
+                    var produto = _produtoService.GetById(item.ProdutoId);
 
                     if (produto == null || produto.Saldo < item.Quantidade)
                         return false;
@@ -26,14 +26,14 @@ namespace NotaFiscalEstoque.API.Services
 
                 foreach (var item in notaEstoque.Produtos)
                 {
-                    var produto = _produtoService.GetById(item.Id);
+                    var produto = _produtoService.GetById(item.ProdutoId);
 
                     if (produto == null)
                         return false;
 
                     produto.Saldo -= item.Quantidade;
 
-                    _produtoService.Update(item.Id, produto);
+                    _produtoService.Update(item.ProdutoId, produto);
                 }
 
                 return true;

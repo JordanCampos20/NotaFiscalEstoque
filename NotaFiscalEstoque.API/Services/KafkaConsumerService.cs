@@ -14,9 +14,12 @@ namespace NotaFiscalEstoque.API.Services
         private readonly IConsumer<string, string> _consumer = new
             ConsumerBuilder<string, string>(new ConsumerConfig()
             {
-                GroupId = "estoque-service",
-                BootstrapServers = "localhost:9092",
-                AutoOffsetReset = AutoOffsetReset.Earliest
+                BootstrapServers = Environment.GetEnvironmentVariable("CONEXAO_KAFKA"),
+                SecurityProtocol = SecurityProtocol.Ssl,
+                SaslMechanism = SaslMechanism.Plain,
+                SaslUsername = Environment.GetEnvironmentVariable("USERNAME_KAFKA"),
+                SaslPassword = Environment.GetEnvironmentVariable("PASSWORD_KAFKA"),
+                ClientId = Environment.GetEnvironmentVariable("CLIENTID_KAFKA")
             }).Build();
 
         private readonly string _topic = "validar-estoque";
@@ -42,13 +45,15 @@ namespace NotaFiscalEstoque.API.Services
                         if (notaEstoque == null)
                             continue;
 
+                        Thread.Sleep(10000);
+
                         bool estoqueDisponivel = _estoqueService.ValidarEAtualizarEstoque(notaEstoque);
 
                         string topicoResposta = estoqueDisponivel ? "estoque-validado" : "estoque-insuficiente";
 
                         await _kafkaProducerService.EnviarNota(topicoResposta, new { NotaId = notaEstoque.Id });
 
-                        Console.WriteLine($"📤 Estoque validado? {estoqueDisponivel}. Mensagem enviada para {topicoResposta}.");
+                        _consumer.Commit(consume);
                     }
                 }
                 catch (Exception ex)

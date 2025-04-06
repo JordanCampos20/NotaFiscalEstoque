@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NotaFiscalEstoque.Application.DTOs;
 using NotaFiscalEstoque.Application.Interfaces;
@@ -6,6 +7,7 @@ namespace NotaFiscalEstoque.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[AllowAnonymous]
 public class ProdutoController(IProdutoService produtoService, ILogger<ProdutoController> logger) : ControllerBase
 {
     private readonly IProdutoService _produtoService = produtoService;
@@ -107,7 +109,7 @@ public class ProdutoController(IProdutoService produtoService, ILogger<ProdutoCo
             bool deletado = _produtoService.Remove(Id);
 
             if (deletado)
-                return Ok("Deletado com sucesso!");
+                return Ok(deletado);
 
             return StatusCode(500, "Não foi possivel deletar!");
         }
