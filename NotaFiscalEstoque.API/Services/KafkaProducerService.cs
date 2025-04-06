@@ -10,7 +10,7 @@ namespace NotaFiscalEstoque.API.Services
             ProducerBuilder<string, string>(new ProducerConfig()
             {
                 BootstrapServers = Environment.GetEnvironmentVariable("CONEXAO_KAFKA"),
-                SecurityProtocol = SecurityProtocol.Ssl,
+                SecurityProtocol = SecurityProtocol.SaslSsl,
                 SaslMechanism = SaslMechanism.Plain,
                 SaslUsername = Environment.GetEnvironmentVariable("USERNAME_KAFKA"),
                 SaslPassword = Environment.GetEnvironmentVariable("PASSWORD_KAFKA"),
